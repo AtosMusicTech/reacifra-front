@@ -1,0 +1,8 @@
+:root{
+    --app-color: #a007ff;
+}
+
+.btn-primary {
+    background-color: var(--app-color) !important;
+    border-color: var(--app-color) !important;
+}
