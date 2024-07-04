@@ -4,13 +4,13 @@ import PiConfig from 'pyllar/config';
 import CifraView from '../cifra/CifraView';
 import CifraStream from '../cifra/CifraStream';
 
-import EditCifraView from '../cifra/EditCifraView';
+import CifraEditView from '../cifra/CifraEditView';
 import "../routes";
 
 import TransporteModel from '../transporte/TransporteModel';
 
 import "./HomePage.css";
-import PreviewCifraView from '../cifra/PreviewCifraView';
+import PreviewCifraView from '../cifra/CifraPreviewView';
 
 export default class HomePage extends PiComponent {
     view = /*html*/`<div class="container homepage">
@@ -55,7 +55,7 @@ export default class HomePage extends PiComponent {
                 return;
             }
 
-            if (transporte.musicaId == 0) {
+            if (transporte.cifraId == 0) {
                 // this.setView(new PreviewCifraView());
                 return;
             }
@@ -63,10 +63,10 @@ export default class HomePage extends PiComponent {
             const cifraView = new CifraView();
             this.setView(cifraView);
             this.hideMenu();
-            cifraView.loadMusica(transporte.musicaId, () => {
+            cifraView.loadCifra(transporte.cifraId, () => {
                 cifraView.setMarcadorPosicao(transporte.posicao);
                 cifraView.setMarcadorPosicao(40);
-            });
+            });''
         });
     }
 
@@ -79,11 +79,11 @@ export default class HomePage extends PiComponent {
     }
 
     _loadEvents() {
-        this.cifraStream.onNewMusica(musica => {
+        this.cifraStream.onNewCifra(cifra => {
             const cifraView = new CifraView();
             this.setView(cifraView);
             cifraView.setStream(this.cifraStream);
-            cifraView.setMusica(musica);
+            cifraView.setCifra(cifra);
             this.hideMenu();
         });
     }

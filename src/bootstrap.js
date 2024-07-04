@@ -6,7 +6,7 @@ import HomePage from "./homepage/HomePage";
 import CifraService from "./cifra/CifraService";
 
 import "./app.css"
-import ListCifrasView from "./cifra/ListCifrasView";
+import CifrasListView from "./cifra/CifrasListView";
 
 if (window.appSettings) {
     PiConfig.load(appSettings);
@@ -21,9 +21,9 @@ new Bootstrap()
         boot.addServices(new CifraService());
     })
     .onReady((boot) => {
-        boot.startServices();
         const homepage = new HomePage();
         homepage.render(global.app.$element);
-        homepage.setView(new ListCifrasView());
+        homepage.setView(new CifrasListView());
+        boot.startServices();
     })
     .load();

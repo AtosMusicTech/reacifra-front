@@ -1,9 +1,9 @@
 import PiConfig from 'pyllar/config';
 import PiModel from 'pyllar/model';
 
-export default class MusicaModel extends PiModel {
+export default class CifraModel extends PiModel {
     init(){
-        super.init(PiConfig.get('endpoint.musica'));
+        super.init(PiConfig.get('endpoint.cifra'));
     }
 
     initWithJson(json){
@@ -17,7 +17,8 @@ export default class MusicaModel extends PiModel {
             'insert': 'POST:/',
             'save': 'PUT:/',
             'get': 'GET:/:id',
-            'all': 'GET:/'
+            'all': 'GET:/',
+            'import': 'GET:/import?url=:url'
         }
     }
 }

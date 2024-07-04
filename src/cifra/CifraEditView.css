@@ -1,10 +1,10 @@
-.new-cifra .editor {
+.cifra-edit .editor {
     border: 1px solid #aaa;
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, .1); */
     padding: 10px;
     border-radius: 5px;
 }
 
-.new-cifra .actions button {
+.cifra-edit .actions button{
     margin: 2px;
 }

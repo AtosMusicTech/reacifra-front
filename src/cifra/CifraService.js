@@ -5,10 +5,10 @@ import PiUrlHash from "pyllar/url_hash";
 
 import HomePage from "../homepage/HomePage";
 
-import NewCifraView from "./NewCifraView";
-import EditCifraView from "./EditCifraView";
-import ListCifrasView from "./ListCifrasView";
-import PreviewCifraView from "./PreviewCifraView";
+import CifraNewView from "./CifraNewView";
+import CifraEditView from "./CifraEditView";
+import CifrasListView from "./CifrasListView";
+import PreviewCifraView from "./CifraPreviewView";
 
 import { ROUTE_PREVIEW_CIFRA, ROUTE_NEW_CIFRA, ROUTE_EDIT_CIFRA, ROUTE_LIST_CIFRA } from "../routes";
 
@@ -23,17 +23,17 @@ export default class CifraService extends PiService {
     }
 
     newCifra() {
-        this._createHomePage(new NewCifraView());
+        this._createHomePage(new CifraNewView());
     }
 
     editCifra(id) {
-        const edit = new EditCifraView();
+        const edit = new CifraEditView();
         this._createHomePage(edit);
-        edit.loadMusica(id);
+        edit.loadCifra(id);
     }
 
     listCifra() {
-        this._createHomePage(new ListCifrasView());
+        this._createHomePage(new CifrasListView());
     }
 
     previewCifra() {

@@ -1,6 +1,6 @@
 import PiComponent from 'pyllar/component';
 
-import MusicaModel from '../musica/MusicaModel';
+import CifraModel from './CifraModel';
 import Marcador from '../marcador/Marcador';
 import NotesCollection from '../note/NoteCollection';
 
@@ -17,17 +17,17 @@ export default class CifraView extends PiComponent {
         });
     }
 
-    async loadMusica(id, fn) {
-        const musica = await (new MusicaModel()).get(id);
-        this.setMusica(musica, fn);
+    async loadCifra(id, fn) {
+        const cifra = await (new CifraModel()).get(id);
+        this.setCifra(cifra, fn);
     }
 
-    setMusica(musica, fn) {
-        this.$element.find("#content").html(musica.cifra.replace(/\([^)]+\)/gi, (note) => {
+    setCifra(cifra, fn) {
+        this.$element.find("#content").html(cifra.cifra.replace(/\([^)]+\)/gi, (note) => {
             return `<b>${note}</b>`
         }));
 
-        this._titulo = musica.titulo;
+        this._titulo = cifra.titulo;
 
         this._loadNotes();
         this._loadMarcador();

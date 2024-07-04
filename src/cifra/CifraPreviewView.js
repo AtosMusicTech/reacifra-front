@@ -1,9 +1,9 @@
 import PiComponent from 'pyllar/component';
 
-import "./PreviewCifraView.css";
+import "./CifraPreviewView.css";
 
-export default class PreviewCifraView extends PiComponent {
-    view = /*html*/`<div class="preview-cifra">
+export default class CifraPreviewView extends PiComponent {
+    view = /*html*/`<div class="cifra-preview">
         <div class="box">
             <div class="box-inner"></div>
         </div>

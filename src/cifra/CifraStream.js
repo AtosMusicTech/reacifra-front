@@ -1,15 +1,15 @@
-import MusicaModel from '../musica/MusicaModel';
+import CifraModel from './CifraModel';
 
 export default class CifraStream {
-    fnNewMusica = null;
+    fnNewCifra = null;
     fnNewNote = null;
 
     constructor(host) {
         this.host = host;
     }
 
-    onNewMusica(fn) {
-        this.fnNewMusica = fn
+    onNewCifra(fn) {
+        this.fnNewCifra = fn
     }
 
     onNewNote(fn) {
@@ -20,10 +20,10 @@ export default class CifraStream {
         try {
             const event = JSON.parse(e.data);
 
-            if (event.type == 'new:musica') {
-                (new MusicaModel()).get(event.id).then((musica) => {
-                    if(this.fnNewMusica){
-                        this.fnNewMusica(musica);
+            if (event.type == 'new:cifra') {
+                (new CifraModel()).get(event.id).then((cifra) => {
+                    if(this.fnNewCifra){
+                        this.fnNewCifra(cifra);
                     }
                 });
 
