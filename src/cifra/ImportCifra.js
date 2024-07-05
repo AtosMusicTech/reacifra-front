@@ -45,7 +45,7 @@ export default class ImportCifra extends PiComponent {
         const model = new CifraModel();
         const data = await model.import(url)
 
-        model.texto = data.texto;
+        model.texto = data.texto.replace(/<b[^>]+>/g, '(').replace(/<\/b>/g, ')').replace(/<b>/g, '(');
 
         this.event.trigger('on:import', model);
 

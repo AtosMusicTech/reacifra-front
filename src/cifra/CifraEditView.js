@@ -7,7 +7,7 @@ import UxButton from "../ux/UxButton";
 import "./CifraEditView.css";
 
 export default class CifraEditView extends PiComponent {
-    view = `<div class="cifra-cifra">
+    view = `<div class="cifra-edit">
         <fieldset>
 
             <div class="row">

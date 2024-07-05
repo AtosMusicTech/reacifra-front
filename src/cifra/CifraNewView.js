@@ -1,4 +1,5 @@
 import PiComponent from "pyllar/component";
+import PiUrl from "pyllar/url";
 
 import CifraModel from "./CifraModel";
 import Transposicao from "./Transposicao";
@@ -100,6 +101,7 @@ export default class CifraNewView extends PiComponent {
 
         this.cifra.insert().then(() => {
             this.save.unlock();
+            window.location = PiUrl.create('localhost').getUrl();
         });
     }
 
