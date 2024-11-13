@@ -6,10 +6,39 @@
     z-index: -1;
     border-radius: 4px;
     transition: top 0.2s, left 0.2s, width 0.2s, height 0.2s;
+    display: none;
+}
+
+.cifra-view .center {
+    position: fixed;
+    top: 50%;
+    left: 0px;
+    right: 0px;
+    height: 2px;
+    /* background-color: #333; */
 }
 
 .cifra-view b {
     color: #f70;
+}
+
+.cifra-view.no-chords b {
+    color: #fff;
+    background-color: #fff;
+
+}
+
+.cifra-view.no-chords .marcador {
+    color: #fff;
+    background-color: #fff;
+
+}
+
+.cifra-view i {
+    background-color: #fffb39;
+    color: #555;
+    border: 1px solid #333;
+    font-style: normal;
 }
 
 .cifra-view .titulo {
@@ -17,9 +46,23 @@
     font-family: Roboto;
     font-weight: bold;
     background: var(--app-color);
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=5e21c7&c2=a33cd3&gt=l&gd=dtl
+*/
+    background: #5E21C7;
+    background: linear-gradient(135deg, #5E21C7, #A33CD3);
     border-bottom-right-radius: 7px;
     border-bottom-left-radius: 7px;
     color: #fff;
     padding: 10px;
     margin-bottom: 30px;
+}
+
+.cifra-view .options {
+    margin-bottom: 30px;
+}
+
+.cifra-view .options .form-check {
+    margin: 5px;
 }

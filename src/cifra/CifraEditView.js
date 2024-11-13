@@ -5,6 +5,7 @@ import Transposicao from "./Transposicao";
 import UxButton from "../ux/UxButton";
 
 import "./CifraEditView.css";
+import CifraView from "./CifraView";
 
 export default class CifraEditView extends PiComponent {
     view = `<div class="cifra-edit">
@@ -12,9 +13,10 @@ export default class CifraEditView extends PiComponent {
 
             <div class="row">
                 <div class="col-12">
-                    <div class="mb-3 d-flex flex-row-reverse actions">
+                    <div style="position: sticky; top: 0;" class="mb-3 d-flex flex-row-reverse actions">
                         <button class="btn btn-secondary btn-sm" @click="transposeUp()">+ 1 Tom</button>
                         <button class="btn btn-secondary btn-sm" @click="transposeDown()">- 1 Tom</button>
+                        <div name="save" @click="salvar()" component="UxButton"></div>
                     </div>
                 </div>
             </div>
@@ -58,18 +60,16 @@ export default class CifraEditView extends PiComponent {
             </div>
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="mb-3">
                         <label class="form-label">Cifra</label>
-                        <pre class="form-control" data-model="texto" id="editor" contenteditable="true"></pre>
+                        <pre class="form-control" data-model="texto" @keyup="_updateRender()" id="editor" contenteditable="true"></pre>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3 d-flex flex-row-reverse actions">
-                        <div name="save" @click="salvar()" component="UxButton"></div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label class="form-label">Preview</label>
+                        <div name="preview" component="CifraView" style="background: #f2f2f2; padding: 10px 20px;border-radius: 5px;"></div>
                     </div>
                 </div>
             </div>
@@ -79,10 +79,18 @@ export default class CifraEditView extends PiComponent {
     _titulo = '';
 
     instances() {
+        this.preview = new CifraView({
+            viewMarker: false
+        });
+
         this.save = new UxButton({
             label: 'Salvar',
             classes: 'btn btn-sm btn-primary'
         });
+    }
+
+    viewDidLoad() {
+        this._handleEvents();
     }
 
     loadCifra(id) {
@@ -94,6 +102,7 @@ export default class CifraEditView extends PiComponent {
     setCifra(cifra) {
         this.cifra = cifra;
         this.inject(cifra);
+        this._updatePreview();
     }
 
     salvar() {
@@ -101,6 +110,7 @@ export default class CifraEditView extends PiComponent {
 
         this.cifra.save().then(() => {
             this.save.unlock();
+            $.notify("Cifra Salva!", "success");
         });
     }
 
@@ -117,6 +127,15 @@ export default class CifraEditView extends PiComponent {
         this._transposition(semitones, false);
     }
 
+    _updateRender() {
+        this.cifra.inject(this);
+        this._updatePreview();
+    }
+
+    _updatePreview() {
+        this.preview.setCifra(this.cifra);
+    }
+
     _transposition(semitones, updateTonalidade = true) {
         this.cifra.inject(this);
 
@@ -124,7 +143,7 @@ export default class CifraEditView extends PiComponent {
             return Transposicao.transpose(note, semitones);
         });
 
-        if(updateTonalidade){
+        if (updateTonalidade) {
             this.cifra.tonalidade = Transposicao.transpose(this.cifra.tonalidade, semitones);
         }
         this.cifra.texto = newCifra;
@@ -135,6 +154,15 @@ export default class CifraEditView extends PiComponent {
     _replaceNotes(cifra, fn) {
         return cifra.replace(/\([^\)+]*\)/gi, (note) => {
             return `(${fn(note.replace('(', '').replace(')', ''))})`;
+        });
+    }
+
+    _handleEvents() {
+        $(document).on('keydown', (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                this.salvar();
+            }
         });
     }
 };

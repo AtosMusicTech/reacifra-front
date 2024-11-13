@@ -7,13 +7,9 @@ import NotesCollection from '../note/NoteCollection';
 import "./CifraView.css";
 
 export default class CifraView extends PiComponent {
-    view = /*html*/`<div class="cifra-view"><pre id="content"></pre></div>`;
+    view = /*html*/`<div class="cifra-view"><div class="titulo">{@_titulo}</div><div id="marcador" class="marcador"></div><pre id="content"></pre></div>`;
 
     _titulo = '';
-
-    instances() {
-        this.viewMarker = true;
-    }
 
     setStream(stream) {
         stream.onNewNote(note => {
@@ -27,7 +23,9 @@ export default class CifraView extends PiComponent {
     }
 
     setCifra(cifra, fn) {
-        this.$element.find("#content").html(this._formatNotes(this._formatTag(cifra.texto)));
+        this.$element.find("#content").html(cifra.texto.replace(/\([^)]+\)/gi, (note) => {
+            return `<b>${note}</b>`
+        }));
 
         this._titulo = cifra.titulo;
 
@@ -39,21 +37,7 @@ export default class CifraView extends PiComponent {
     }
 
     setMarcadorPosicao(position) {
-        if(this.viewMarker){
-            this.marcador.move(this.notes.getNoteByPosition(position));
-        }
-    }
-
-    _formatNotes(cifra) {
-        return cifra.replace(/\([^)]+\)/gi, (note) => {
-            return `<b>${note.replace('(', '').replace(')', '')}</b>`
-        });
-    }
-
-    _formatTag(cifra) {
-        return cifra.replace(/\[[^\]]+\]/gi, (note) => {
-            return `<i>${note}</i>`
-        });
+        this.marcador.move(this.notes.getNoteByPosition(position));
     }
 
     _loadMarcador() {

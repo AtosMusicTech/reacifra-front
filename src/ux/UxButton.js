@@ -17,7 +17,9 @@ export default class UxButton extends PiComponent {
     }
 
     unlock() {
-        this.label = this._label;
+        if (this._label != undefined) {
+            this.label = this._label;
+        }
         this._lock = false;
     }
 

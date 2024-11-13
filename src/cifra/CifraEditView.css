@@ -5,6 +5,10 @@
     border-radius: 5px;
 }
 
+.cifra-edit #editor{
+    font-size: 14px;
+}
+
 .cifra-edit .actions button {
     margin: 2px;
 }
